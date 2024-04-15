@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 
@@ -22,9 +24,12 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100)
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column( name = "cpf", length = 11) //coluna c 11 digitos pra cpf
+    @NotEmpty(message = "{campo.cpf.obrigatorio}") //usando uma mensagem externalizada
+    @CPF(message = "{campo.cpf.invalido}") //usando mensagem externalizada
     private String cpf;
 
     @JsonIgnore
